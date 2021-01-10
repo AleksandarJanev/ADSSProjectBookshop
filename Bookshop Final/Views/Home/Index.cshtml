@@ -1,0 +1,76 @@
+﻿@model Bookshop.Models.Book
+@using Microsoft.AspNetCore.Identity
+
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<h1 style="text-align:center">Online Book Shop</h1>
+
+@Html.Partial("_Search")
+
+@Html.Partial("_Carousel")
+
+
+<div class="card-deck">
+    @foreach (var item in Model.PaginatedBooks())
+    {
+
+    <div class="card" style="width: 18rem; text-align:center;">
+        <a asp-controller="AllBooks" asp-action="Details" asp-route-id="@item.BookID">
+            <br />
+            <img src="@Html.DisplayFor(modelItem => item.Image)" height="200" width="150" />
+            <div class="card-body">
+                <h5 class="card-title">@Html.DisplayFor(modelItem => item.Name)</h5>
+
+                <p class="card-text">@Html.DisplayFor(modelItem => item.Price) мкд</p>
+            </div>
+
+        </a>
+        <div class="addToCart text-center">
+            <p class="button ">
+                <a class="btn btn-success" id="cartButton" asp-controller="ShoppingCart" asp-action="AddToShoppingCart" asp-route-BookID="@item.BookID">
+                    Add to cart
+                </a>
+            </p>
+        </div>
+        @if (User.Identity.IsAuthenticated)
+        {
+            <div class="addToCart text-center">
+                <p class="button ">
+                    <a class="btn btn-success" id="cartButton" asp-controller="Books" asp-action="Edit" asp-route-id="@item.BookID">
+                        Edit
+                    </a>
+                </p>
+            </div>
+            <div class="addToCart text-center">
+                <p class="button ">
+                    <a class="btn btn-danger" id="cartButton" asp-controller="Books" asp-action="Delete" asp-route-id="@item.BookID">
+                        Delete
+                    </a>
+                </p>
+            </div>
+        }
+        else
+        {
+
+        }
+    </div>
+
+        
+    }
+</div>
+<br />
+
+    <ul class="pagination">
+        @for (int i = 1; i <= Model.PageCount(); i++)
+        {
+            <li class="@(i == Model.CurrentPage ? "page-item active" : "page-item")">
+                <a class="page-link" href="@Url.Action("Index", new { page = i })">@i</a>
+            </li>
+
+        }
+    </ul>

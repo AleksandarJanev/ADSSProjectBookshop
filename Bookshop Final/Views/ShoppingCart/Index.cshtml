@@ -1,0 +1,52 @@
+﻿@model Bookshop.ViewModels.ShoppingCartViewModel
+
+<div class="row checkoutForm">
+    <h2>Here are the books in your shopping cart.</h2>
+    <table class="table table-bordered table-striped">
+        <thead>
+            <tr>
+                <th>Selected amount</th>
+                <th>Book</th>
+                <th class="text-right">Price</th>
+                <th class="text-right">Subtotal</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var line in Model.ShoppingCart.ShoppingCartItems)
+            {
+            <tr>
+                <td class="text-center">@line.Amount</td>
+                <td class="text-left">@line.Book.Name</td>
+                <td class="text-right">@line.Book.Price.ToString("c")</td>
+                <td class="text-right">
+                    @((line.Amount * line.Book.Price).ToString("c"))
+                <td class="text-center"><a class="text-danger remove" asp-controller="ShoppingCart" asp-action="RemoveFromShoppingCart" asp-route-BookID="@line.Book.BookID">Remove</a></td>
+                </td>
+            </tr>
+            }
+        </tbody>
+        <tfoot>
+            <tr>
+                <td colspan="3" class="text-right">Total:</td>
+                <td class="text-right">
+                    @Model.ShoppingCartTotal.ToString("c")
+                </td>
+            </tr>
+        </tfoot>
+    </table>
+
+    <div class="text-right">
+        <div class="btn-group ">
+            <a class="btn btn-success" asp-controller="Order" asp-action="Checkout" onclick="return confirm('Confirm order')">Check out</a>
+            <a class="btn-group">
+                <a class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                    Add more books<span class="caret"></span>
+                </a>
+                <ul class="dropdown-menu" role="menu">
+                    <li><a asp-controller="AllBooks" asp-action="Index" style="align-content:center">All Books</a></li>
+                </ul>
+            </a>
+        </div>
+    </div>
+</div>

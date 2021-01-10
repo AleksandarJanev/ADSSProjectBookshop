@@ -1,0 +1,16 @@
+﻿@model Bookshop.ViewModels.ShoppingCartViewModel
+
+@using Microsoft.AspNetCore.Identity
+@using Microsoft.AspNetCore.Identity.EntityFrameworkCore
+
+
+
+
+    <li>
+        <a asp-controller="ShoppingCart">
+            <button type="button" class="btn btn-default btn-sm">
+                <span class="fas fa-shopping-cart">@Model.ShoppingCart.ShoppingCartItems.Count</span> Shopping Cart
+            </button>
+        </a>
+    </li>
+    

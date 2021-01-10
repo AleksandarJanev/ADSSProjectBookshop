@@ -1,0 +1,74 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Bookshop</title>
+    <link rel="icon" type="image/gif/png" href="~/Images/onlinelibrary.png">
+
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" />
+    <link href="~/lib/font-awesome/css/all.css" rel="stylesheet"/>
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+            <div class="container">
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Bookshop</a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
+                    <partial name="_LoginPartial.cshtml" />
+                    <ul class="navbar-nav flex-grow-1">
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Books" asp-action="Index">Admin Panel</a>
+                        </li>
+
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Books
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+
+                                <a class="dropdown-item" asp-controller="AllBooks" asp-action="Fantasies">Fantasies</a>
+                                <a class="dropdown-item" asp-controller="AllBooks" asp-action="Thrillers">Thrillers</a>
+                                <a class="dropdown-item" asp-controller="AllBooks" asp-action="SocialStudies">Social Studies</a>
+                                <a class="dropdown-item" asp-controller="AllBooks" asp-action="MysteriesAndHistoricalFiction">Mistery & Historical Fiction</a>
+                                <a class="dropdown-item" asp-controller="AllBooks" asp-action="History">History</a>
+                                <a class="dropdown-item" asp-controller="AllBooks" asp-action="Poetry">Poetry</a>
+                                <a class="dropdown-item" asp-controller="AllBooks" asp-action="Romance">Romance</a>
+                                <a class="dropdown-item" asp-controller="AllBooks" asp-action="FoodAndCookbooks">Food & Cookbooks</a>
+                                <a class="dropdown-item" asp-controller="AllBooks" asp-action="Horror">Horror</a>
+                                <a class="dropdown-item" asp-controller="AllBooks" asp-action="Humor">Humor</a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" asp-controller="AllBooks" asp-action="Index">All Books</a>
+                            </div>
+                        </li>
+                        @await Component.InvokeAsync("ShoppingCartSummary")
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <div class="container">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+
+    <footer class="border-top footer text-muted">
+        <div class="container">
+            &copy; 2020 - Aleksandar Janev - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+        </div>
+    </footer>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @RenderSection("Scripts", required: false)
+</body>
+</html>
